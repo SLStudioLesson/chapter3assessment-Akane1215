@@ -40,7 +40,6 @@ public class App {
             RecipeUI recipeUI = new RecipeUI(selectedDataHandler);
             recipeUI.displayMenu();
 
-
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
         }

@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.recipeapp.datahandler.DataHandler;
+import com.recipeapp.model.Ingredient;
+import com.recipeapp.model.Recipe;
 
 public class RecipeUI {
     private BufferedReader reader;
@@ -34,8 +36,10 @@ public class RecipeUI {
 
                 switch (choice) {
                     case "1":
+                        displayRecipes();
                         break;
                     case "2":
+                        addNewRecipe();
                         break;
                     case "3":
                         break;
@@ -53,10 +57,48 @@ public class RecipeUI {
     }
 
     private void displayRecipes() {
-        // try {
+        try {
+            ArrayList<Recipe> recipes = dataHandler.readData();
 
-        // // } catch (IOException e) {
-        //     System.out.println("Error reading file: 例外のメッセージ");
-        // }
+            if (recipes != null) {
+                System.out.println("Recipes:");
+                System.out.println("-----------------");
+
+                for (Recipe recipe : recipes) {
+                    System.out.println("Recipe Name:" + recipe.getName());
+                    System.out.println("Main Ingredients:" + recipe.getIngredients());
+                    System.out.println("----------------");
+                }
+            } else {
+                System.out.println("No recipes available.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void addNewRecipe() throws IOException{
+        try {
+            System.out.println("Enter recipe name: ");
+            String recipeName = reader.readLine();
+            //ingredientsのリストを追加
+            ArrayList<Ingredient> ingredients = new ArrayList<>();
+            // doneと入力されるまで処理が継続
+            while (true) {
+                System.out.print("Enter ingredients (type 'done' when finished): ");
+                String input = reader.readLine();
+                if ("done".equals(input)) {
+                    break;
+                }
+                ingredients.add(new Ingredient(input));
+            }
+            // 入力された情報をもとに新しいレシピを作成
+            Recipe recipe = new Recipe(recipeName, ingredients);
+            // データを保存
+            dataHandler.writeData(recipe);
+
+            } catch (IOException e) {
+            System.out.println("Failed to add new recipe: 例外のメッセージ");
+        }
     }
 }

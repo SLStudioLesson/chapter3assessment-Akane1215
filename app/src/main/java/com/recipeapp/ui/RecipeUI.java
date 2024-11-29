@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.recipeapp.datahandler.DataHandler;
+
 public class RecipeUI {
     private BufferedReader reader;
     private DataHandler dataHandler;
@@ -16,7 +18,6 @@ public class RecipeUI {
     }
     
     public void displayMenu() {
-
         System.out.println("Current mode: " + dataHandler.getMode());
 
         while (true) {
@@ -49,5 +50,13 @@ public class RecipeUI {
                 System.out.println("Error reading input from user: " + e.getMessage());
             }
         }
+    }
+
+    private void displayRecipes() {
+        // try {
+
+        // // } catch (IOException e) {
+        //     System.out.println("Error reading file: 例外のメッセージ");
+        // }
     }
 }

@@ -8,8 +8,10 @@ public class App {
 
     public static void main(String[] args) {
 
+        //インスタンスの作成
         CSVDataHandler csvDataHandler = new CSVDataHandler();
         JSONDataHandler jsonDataHandler = new JSONDataHandler();
+        
         // データハンドラーの初期値csvDataHandler
         DataHandler selectedDataHandler = csvDataHandler;
 
@@ -19,6 +21,7 @@ public class App {
             System.out.println("2. JSON");
             System.out.print("Select (1/2): ");
 
+            //ユーザーの選択を読み取る
             String choice = reader.readLine();
 
             switch (choice) {

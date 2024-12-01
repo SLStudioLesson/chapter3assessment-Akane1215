@@ -38,12 +38,12 @@ public class CSVDataHandler implements DataHandler {
                 String recipeName = parts[0];
 
                 // //ingredientsリストを作成
-                ArrayList<String> ingredients = new ArrayList<>();
+                ArrayList<Ingredient> ingredients = new ArrayList<>();
                 //parts[1]以降をリストに追加
-                // for (int i = 1; i < parts.length; i++) {
-                //     ingredients.add(new Ingredient(parts[i]));
-                // }
-                // recipes.add(new Recipe(recipeName, ingredients));
+                for (int i = 1; i < parts.length; i++) {
+                    ingredients.add(new Ingredient(parts[i]));
+                }
+                recipes.add(new Recipe(recipeName, ingredients));
             }
             
         } catch (IOException e) {
@@ -58,11 +58,15 @@ public class CSVDataHandler implements DataHandler {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             
-            // //新しいレシピの追加
-            ArrayList<Recipe> newRecipes = new ArrayList<>();
-            newRecipes.add(recipe);
+            String line = recipe.getName();
+            
+            ArrayList<String> ingredientsList = new ArrayList<>();
+                for (Ingredient ingredient : recipe.getIngredients()) {
+                    // 材料の名前をリストに追加
+                    ingredientsList.add(ingredient.getName());
+                }
 
-            // writer.write();
+            writer.write(line);
             writer.newLine();
             System.out.println("Recipe added successfully.");
         } catch (IOException e) {

@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
 
 import com.recipeapp.datahandler.DataHandler;
 import com.recipeapp.model.Ingredient;
@@ -66,7 +65,15 @@ public class RecipeUI {
 
                 for (Recipe recipe : recipes) {
                     System.out.println("Recipe Name:" + recipe.getName());
-                    System.out.println("Main Ingredients:" + recipe.getIngredients());
+
+                    // 材料を取得、材料名をgetName()で渡す
+                    String ingredientsList = "";
+                    for (int i = 0; i < recipe.getIngredients().size(); i++) {
+                        Ingredient ingredient = recipe.getIngredients().get(i);
+                        ingredientsList += ingredient.getName();
+                    }
+
+                    System.out.println("Main Ingredients:" + ingredientsList);
                     System.out.println("----------------");
                 }
             } else {
@@ -81,8 +88,10 @@ public class RecipeUI {
         try {
             System.out.println("Enter recipe name: ");
             String recipeName = reader.readLine();
+
             //ingredientsのリストを追加
             ArrayList<Ingredient> ingredients = new ArrayList<>();
+            
             // doneと入力されるまで処理が継続
             while (true) {
                 System.out.print("Enter ingredients (type 'done' when finished): ");
@@ -90,6 +99,7 @@ public class RecipeUI {
                 if ("done".equals(input)) {
                     break;
                 }
+                // 入力された材料をリストに追加
                 ingredients.add(new Ingredient(input));
             }
             // 入力された情報をもとに新しいレシピを作成
